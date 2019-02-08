@@ -27,7 +27,7 @@
   },
   "autoload":{
     "psr-4": {
-      "Oveleon\\ContaoImmoManagerBundle\\": "src/"
+      "Oveleon\\ContaoImmoManagerWatchlistBundle\\": "src/"
     },
     "classmap": [
       "src/Resources/contao/"
