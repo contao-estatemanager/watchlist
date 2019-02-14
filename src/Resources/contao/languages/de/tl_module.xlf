@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_module.watchlist_legend">
+        <source>Watchlist</source>
+        <target>Merkzettel</target>
+      </trans-unit>
+      <trans-unit id="tl_module.addWatchlist.0">
+        <source>Show Watchlist</source>
+        <target>Merkzettel hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.addWatchlist.1">
+        <source>Adds the watchlist to supported templates</source>
+        <target>Fügt bei unterstützten Templates den Merkzettel hinzu</target>
+      </trans-unit>
+      <trans-unit id="tl_module.realEstateWatchlistTemplate.0">
+        <source>Watchlist Template</source>
+        <target>Merkzettel Template</target>
+      </trans-unit>
+      <trans-unit id="tl_module.realEstateWatchlistTemplate.1">
+        <source>Here you can overwrite the default template for the watchlist</source>
+        <target>Hier können Sie das Standard-Template für den Merkzettel überschreiben</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

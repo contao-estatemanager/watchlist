@@ -1,0 +1,105 @@
+<script>
+(function() {
+    // ToDo: IE support for Custom Events
+    // register custom events
+    var watchlistChange = new CustomEvent('watchlist.onChange', {detail: {xhr: null, previousState: null}});
+    var watchlistDelete = new CustomEvent('watchlist.onDelete', {detail: {xhr: null}});
+
+    // serialize form function
+    function serializeWatchlistForm(form) {
+        var field, s = [];
+        if (typeof form == 'object' && form.nodeName == "FORM") {
+            var len = form.elements.length;
+            for (i=0; i<len; i++) {
+                field = form.elements[i];
+                if (field.name && !field.disabled && field.type != 'file' && field.type != 'reset' && field.type != 'submit' && field.type != 'button') {
+                    if (field.type == 'select-multiple') {
+                        for (j=form.elements[i].options.length-1; j>=0; j--) {
+                            if(field.options[j].selected)
+                                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[j].value);
+                        }
+                    } else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
+                        s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+                    }
+                }
+            }
+        }
+        return s.join('&').replace(/%20/g, '+');
+    }
+
+    // default watchlist buttons
+    if(!!document.querySelector('.real_estate_watchlist_button button')) {
+        var allButtons = document.querySelectorAll('.real_estate_watchlist_button button'),
+            excludeWlButtons = document.querySelectorAll('.delete-list .real_estate_watchlist_button button'),
+            arrButtons = [],
+            xhr = new XMLHttpRequest();
+
+        // exclude buttons from list with a .delete-list parent
+        for (var c=0; c<allButtons.length; c++){
+            arrButtons.push(allButtons[c]);
+
+            for (var cx=0; cx<excludeWlButtons.length; cx++){
+
+                if(allButtons[c] === excludeWlButtons[cx]){
+                    arrButtons.pop();
+                }
+            }
+        }
+
+        for (var i=0; i<arrButtons.length; i++){
+            arrButtons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // send xhr
+                xhr.open('POST', location.href);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(serializeWatchlistForm(e.target.form));
+
+                // set state for handle further events
+                e.target.watchlistPreviousState = e.target.classList.contains('active');
+
+                xhr.onload = function (e) {
+                    // add xhr event
+                    watchlistChange.detail.xhr = e;
+
+                    // dispatch custom event
+                    document.dispatchEvent(watchlistChange);
+                };
+
+                xhr.onerror = function (e) {
+                    // add xhr event
+                    watchlistChange.detail.xhr = e;
+
+                    // dispatch custom event
+                    document.dispatchEvent(watchlistChange);
+                };
+
+                e.target.classList.toggle('active');
+            });
+        }
+    }
+
+    // remove from watchlist buttons
+    if(!!document.querySelector('.delete-list .real_estate_watchlist_button button')) {
+        var deleteButtons = document.querySelectorAll('.delete-list .real_estate_watchlist_button button'),
+            xhr = new XMLHttpRequest();
+
+        for (var i=0; i<deleteButtons.length; i++){
+            deleteButtons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // send xhr
+                xhr.open('POST', location.href);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(serializeWatchlistForm(e.target.form));
+
+                // add xhr event
+                watchlistDelete.detail.xhr = e;
+
+                // dispatch custom event
+                document.dispatchEvent(watchlistDelete);
+            });
+        }
+    }
+})();
+</script>
