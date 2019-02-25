@@ -1,0 +1,18 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<div class="real_estate_watchlist_button<?= $this->active ?>">
+    <form method="post" enctype="application/x-www-form-urlencoded" novalidate>
+        <div class="formbody">
+            <input type="hidden" name="FORM_SUBMIT" value="watchlist">
+            <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+            <input type="hidden" name="REAL_ESTATE_ID" value="<?= $this->realEstateId ?>">
+            <div class="widget widget-submit">
+                <button type="submit" class="submit<?= $this->active ?>"><?=$this->label?></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<?php $this->endblock(); ?>

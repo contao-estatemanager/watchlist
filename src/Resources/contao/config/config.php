@@ -7,6 +7,12 @@
  * @license   https://github.com/oveleon/contao-immo-manager-bundle/blob/master/LICENSE
  */
 
+// Add expose module
+array_insert($GLOBALS['FE_EXPOSE_MOD']['miscellaneous'], -1, array
+(
+    'watchlist' => '\\Oveleon\\ContaoImmoManagerWatchlistBundle\\ExposeModuleWatchlist',
+));
+
 // HOOKS
 $GLOBALS['TL_HOOKS']['postLogin'][] = array('\\Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'postLogin');
 
