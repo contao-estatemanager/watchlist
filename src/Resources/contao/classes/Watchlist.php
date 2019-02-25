@@ -12,7 +12,7 @@ namespace Oveleon\ContaoImmoManagerWatchlistBundle;
 use Oveleon\ContaoImmoManagerBundle\Translator;
 use Oveleon\ContaoImmoManagerBundle\RealEstateModel;
 
-class Watchlist
+class Watchlist extends \System
 {
 
     /**
@@ -127,6 +127,7 @@ class Watchlist
         if (FE_USER_LOGGED_IN)
         {
             $this->import('FrontendUser', 'User');
+            $this->import('Database');
 
             $this->Database->prepare("UPDATE tl_member SET watchlist=? WHERE id=?")
                 ->execute(serialize($_SESSION['WATCHLIST']), $this->User->id);
