@@ -7,8 +7,10 @@
  * @license   https://github.com/oveleon/contao-immo-manager-bundle/blob/master/LICENSE
  */
 
-// Add field
-array_insert($GLOBALS['TL_DCA']['tl_expose_module']['palettes'], -1, array
-(
-    'watchlist'  => '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
-));
+if(Oveleon\ContaoImmoManagerWatchlistBundle\AddonManager::valid()) {
+    // Add field
+    array_insert($GLOBALS['TL_DCA']['tl_expose_module']['palettes'], -1, array
+    (
+        'watchlist' => '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
+    ));
+}
