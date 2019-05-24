@@ -1,1 +1,6 @@
-# contao-immo-manager-watchlist-bundle
+# Contao EstateManager - Watchlist
+
+# License
+Copyright (c) 2019 Contao EstateManager
+
+German License: https://www.contao-estatemanager.com/lizenzbedingungen.html
