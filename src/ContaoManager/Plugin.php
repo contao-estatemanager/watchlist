@@ -1,21 +1,22 @@
 <?php
 /**
- * This file is part of Oveleon ImmoManager.
+ * This file is part of Contao EstateManager.
  *
- * @link      https://github.com/oveleon/contao-immo-manager-bundle
- * @copyright Copyright (c) 2018-2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://github.com/oveleon/contao-immo-manager-bundle/blob/master/LICENSE
+ * @link      https://www.contao-estatemanager.com/
+ * @source    https://github.com/contao-estatemanager/watchlist
+ * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
+ * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
 declare(strict_types=1);
 
-namespace Oveleon\ContaoImmoManagerWatchlistBundle\ContaoManager;
+namespace ContaoEstateManager\Watchlist\ContaoManager;
 
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
-use Oveleon\ContaoImmoManagerWatchlistBundle\ContaoImmoManagerWatchlistBundle;
+use ContaoEstateManager\Watchlist\EstateManagerWatchlist;
 
 class Plugin implements BundlePluginInterface
 {
@@ -25,9 +26,9 @@ class Plugin implements BundlePluginInterface
     public function getBundles(ParserInterface $parser): array
     {
         return [
-            BundleConfig::create(ContaoImmoManagerWatchlistBundle::class)
+            BundleConfig::create(EstateManagerWatchlist::class)
                 ->setLoadAfter([ContaoCoreBundle::class])
-                ->setReplace(['immo-manager-watchlist']),
+                ->setReplace(['estatemanagerwatchlist']),
         ];
     }
 }
