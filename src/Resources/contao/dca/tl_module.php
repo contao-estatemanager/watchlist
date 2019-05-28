@@ -38,6 +38,7 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()){
         ->addField(array('addWatchlist'), 'watchlist_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
         ->addField(array('realEstateWatchlistTemplate'), 'template_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
         ->applyToPalette('realEstateList', 'tl_module')
+        ->applyToPalette('realEstateResultList', 'tl_module')
     ;
 }
 
