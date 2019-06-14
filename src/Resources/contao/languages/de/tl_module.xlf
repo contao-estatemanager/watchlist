@@ -15,12 +15,12 @@
         <target>Fügt bei unterstützten Templates den Merkzettel hinzu</target>
       </trans-unit>
       <trans-unit id="tl_module.realEstateWatchlistTemplate.0">
-        <source>Watchlist Template</source>
-        <target>Merkzettel Template</target>
+        <source>Real Estate Template Extension: Watchlist</source>
+        <target>Immobilien Template Erweiterung: Merkzettel</target>
       </trans-unit>
       <trans-unit id="tl_module.realEstateWatchlistTemplate.1">
-        <source>Here you can overwrite the default template for the watchlist</source>
-        <target>Hier können Sie das Standard-Template für den Merkzettel überschreiben</target>
+        <source>Here you can overwrite the default template for watchlist within a real estate template.</source>
+        <target>Hier können Sie das Standard-Template für Merkzettel innerhalb eines Immobilien Templates überschreiben</target>
       </trans-unit>
     </body>
   </file>
