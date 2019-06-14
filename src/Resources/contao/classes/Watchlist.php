@@ -95,7 +95,7 @@ class Watchlist extends \System
             $objWatchlistTemplate = new \FrontendTemplate($context->realEstateWatchlistTemplate);
 
             $objWatchlistTemplate->realEstateId = $realEstate->objRealEstate->id;
-            $objWatchlistTemplate->active = \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']) ? ' active' : '';
+            $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']) ? ' active' : '';
             $objWatchlistTemplate->label = Translator::translateLabel('button_watchlist');
 
             $objTemplate->arrExtensions = array_merge($objTemplate->arrExtensions, [$objWatchlistTemplate->parse()]);
