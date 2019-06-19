@@ -23,10 +23,10 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()){
         ),
         'realEstateWatchlistTemplate' => array(
             'label'                   => &$GLOBALS['TL_LANG']['tl_module']['realEstateWatchlistTemplate'],
-            'default'                 => 'real_estate_watchlist_default',
+            'default'                 => 'real_estate_itemext_watchlist_default',
             'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_module_estate_manager_watchlist', 'getRealEstateWatchlistTemplates'),
+            'options_callback'        => array('tl_module_estate_manager', 'getRealEstateExtensionTemplates'),
             'eval'                    => array('tl_class'=>'w50'),
             'sql'                     => "varchar(64) NOT NULL default ''"
         )
@@ -34,38 +34,9 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()){
 
     // Extend the default palettes
     Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-        ->addLegend('watchlist_legend', 'template_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_BEFORE)
-        ->addField(array('addWatchlist'), 'watchlist_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+        ->addField(array('addWatchlist'), 'item_extension_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
         ->addField(array('realEstateWatchlistTemplate'), 'template_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
         ->applyToPalette('realEstateList', 'tl_module')
         ->applyToPalette('realEstateResultList', 'tl_module')
     ;
-}
-
-/**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Daniele Sciannimanica <daniele@oveleon.de>
- */
-class tl_module_estate_manager_watchlist extends Backend
-{
-
-    /**
-     * Import the back end user object
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->import('BackendUser', 'User');
-    }
-
-    /**
-     * Return all real estate list templates as array
-     *
-     * @return array
-     */
-    public function getRealEstateWatchlistTemplates()
-    {
-        return $this->getTemplateGroup('real_estate_watchlist_');
-    }
 }
