@@ -15,7 +15,7 @@ use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
-use Oveleon\ContaoImmoManagerWatchlistBundle\ContaoImmoManagerWatchlistBundle;
+use ContaoEstateManager\Watchlist\EstateManagerWatchlist;
 
 class Plugin implements BundlePluginInterface
 {
@@ -25,9 +25,9 @@ class Plugin implements BundlePluginInterface
     public function getBundles(ParserInterface $parser): array
     {
         return [
-            BundleConfig::create(ContaoImmoManagerWatchlistBundle::class)
-                ->setLoadAfter([ContaoCoreBundle::class])
-                ->setReplace(['immo-manager-watchlist']),
+            BundleConfig::create(EstateManagerWatchlist::class)
+                ->setLoadAfter([ContaoCoreBundle::class, EstateManager::class])
+                ->setReplace(['estatemanager-watchlist']),
         ];
     }
 }
