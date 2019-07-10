@@ -1,32 +1,33 @@
 <?php
 /**
- * This file is part of Oveleon ImmoManager.
+ * This file is part of Contao EstateManager.
  *
- * @link      https://github.com/oveleon/contao-immo-manager-bundle
- * @copyright Copyright (c) 2018-2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://github.com/oveleon/contao-immo-manager-bundle/blob/master/LICENSE
+ * @link      https://www.contao-estatemanager.com/
+ * @source    https://github.com/contao-estatemanager/watchlist
+ * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
+ * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
 
-// IMMOMANAGER
-$GLOBALS['TL_IMMOMANAGER_ADDONS'][] = array('Oveleon\\ContaoImmoManagerWatchlistBundle', 'AddonManager');
+// ESTATEMANAGER
+$GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = array('ContaoEstateManager\\Watchlist', 'AddonManager');
 
-if(Oveleon\ContaoImmoManagerWatchlistBundle\AddonManager::valid()) {
+if(ContaoEstateManager\Watchlist\AddonManager::valid()) {
     // Add expose module
     array_insert($GLOBALS['FE_EXPOSE_MOD']['miscellaneous'], -1, array
     (
-        'watchlist' => '\\Oveleon\\ContaoImmoManagerWatchlistBundle\\ExposeModuleWatchlist',
+        'watchlist' => '\\ContaoEstateManager\\Watchlist\\ExposeModuleWatchlist',
     ));
 
     // HOOKS
-    $GLOBALS['TL_HOOKS']['postLogin'][] = array('\\Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'postLogin');
+    $GLOBALS['TL_HOOKS']['postLogin'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'postLogin');
 
-    $GLOBALS['TL_HOOKS']['generateRealEstateList'][] = array('\\Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'initializeWatchlistSession');
-    $GLOBALS['TL_HOOKS']['generateRealEstateExpose'][] = array('\\Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'initializeWatchlistSession');
-    $GLOBALS['TL_HOOKS']['generateRealEstateResultList'][] = array('\\Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'initializeWatchlistSession');
+    $GLOBALS['TL_HOOKS']['generateRealEstateList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
+    $GLOBALS['TL_HOOKS']['generateRealEstateExpose'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
+    $GLOBALS['TL_HOOKS']['generateRealEstateResultList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
 
-    $GLOBALS['TL_HOOKS']['countItemsRealEstateList'][] = array('Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'countItems');
-    $GLOBALS['TL_HOOKS']['fetchItemsRealEstateList'][] = array('Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'fetchItems');
+    $GLOBALS['TL_HOOKS']['countItemsRealEstateList'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'countItems');
+    $GLOBALS['TL_HOOKS']['fetchItemsRealEstateList'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'fetchItems');
 
-    $GLOBALS['TL_HOOKS']['parseRealEstate'][] = array('Oveleon\\ContaoImmoManagerWatchlistBundle\\Watchlist', 'parseRealEstate');
+    $GLOBALS['TL_HOOKS']['parseRealEstate'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'parseRealEstate');
 }

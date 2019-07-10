@@ -1,16 +1,17 @@
 <?php
 /**
- * This file is part of Oveleon ImmoManager.
+ * This file is part of Contao EstateManager.
  *
- * @link      https://github.com/oveleon/contao-immo-manager-bundle
- * @copyright Copyright (c) 2018-2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://github.com/oveleon/contao-immo-manager-bundle/blob/master/LICENSE
+ * @link      https://www.contao-estatemanager.com/
+ * @source    https://github.com/contao-estatemanager/watchlist
+ * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
+ * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
-namespace Oveleon\ContaoImmoManagerWatchlistBundle;
+namespace ContaoEstateManager\Watchlist;
 
-use Oveleon\ContaoImmoManagerBundle\Translator;
-use Oveleon\ContaoImmoManagerBundle\RealEstateModel;
+use ContaoEstateManager\Translator;
+use ContaoEstateManager\RealEstateModel;
 
 class Watchlist extends \System
 {
@@ -94,7 +95,7 @@ class Watchlist extends \System
             $objWatchlistTemplate = new \FrontendTemplate($context->realEstateWatchlistTemplate);
 
             $objWatchlistTemplate->realEstateId = $realEstate->objRealEstate->id;
-            $objWatchlistTemplate->active = \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']) ? ' active' : '';
+            $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']) ? ' active' : '';
             $objWatchlistTemplate->label = Translator::translateLabel('button_watchlist');
 
             $objTemplate->arrExtensions = array_merge($objTemplate->arrExtensions, [$objWatchlistTemplate->parse()]);
