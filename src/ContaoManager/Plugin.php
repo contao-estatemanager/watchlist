@@ -27,8 +27,8 @@ class Plugin implements BundlePluginInterface
     {
         return [
             BundleConfig::create(EstateManagerWatchlist::class)
-                ->setLoadAfter([ContaoCoreBundle::class])
-                ->setReplace(['estatemanagerwatchlist']),
+                ->setLoadAfter([ContaoCoreBundle::class, EstateManager::class])
+                ->setReplace(['estatemanager-watchlist']),
         ];
     }
 }
