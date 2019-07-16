@@ -25,6 +25,7 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()) {
     $GLOBALS['TL_HOOKS']['generateRealEstateList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
     $GLOBALS['TL_HOOKS']['generateRealEstateExpose'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
     $GLOBALS['TL_HOOKS']['generateRealEstateResultList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
+    $GLOBALS['TL_HOOKS']['generateRealEstateProjectList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
 
     $GLOBALS['TL_HOOKS']['countItemsRealEstateList'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'countItems');
     $GLOBALS['TL_HOOKS']['fetchItemsRealEstateList'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'fetchItems');
