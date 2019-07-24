@@ -129,9 +129,6 @@
                 // set state for handle further events
                 e.target.watchlistPreviousState = e.target.classList.contains('active');
 
-                // set removed class
-                e.target.classList.add('removed');
-
                 // send xhr
                 dxhr.open('POST', location.href);
                 dxhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
