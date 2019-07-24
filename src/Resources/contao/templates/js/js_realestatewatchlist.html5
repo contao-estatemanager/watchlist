@@ -91,7 +91,7 @@
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send(serializeWatchlistForm(e.target.form));
                 xhr.stateBefore = e.target.watchlistPreviousState;
-                xhr.detail.element = e.target;
+                watchlistChange.detail.element = e.target;
 
                 xhr.onload = function (e) {
                     // add xhr event
@@ -137,7 +137,7 @@
                 dxhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 dxhr.send(serializeWatchlistForm(e.target.form));
                 dxhr.stateBefore = e.target.watchlistPreviousState;
-                dxhr.detail.element = e.target;
+                watchlistDelete.detail.element = e.target;
 
                 dxhr.onload = function (e) {
                     // add dxhr event
