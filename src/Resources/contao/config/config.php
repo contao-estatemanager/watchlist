@@ -19,6 +19,12 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()) {
         'watchlist' => '\\ContaoEstateManager\\Watchlist\\ExposeModuleWatchlist',
     ));
 
+    // Add front end modules
+    array_insert($GLOBALS['FE_MOD']['estatemanager'], count($GLOBALS['FE_MOD']['estatemanager']), array
+    (
+        'watchlistRedirector'       => '\\ContaoEstateManager\\Watchlist\\ModuleWatchlistRedirector'
+    ));
+
     // HOOKS
     $GLOBALS['TL_HOOKS']['postLogin'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'postLogin');
 

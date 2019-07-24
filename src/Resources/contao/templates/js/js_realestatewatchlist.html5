@@ -1,6 +1,5 @@
 <script>
 (function() {
-    // ToDo: IE support for Custom Events
     // register custom events
     var watchlistChange = new CustomEvent('watchlist.onChange', {detail: {xhr: null, previousState: null}});
     var watchlistDelete = new CustomEvent('watchlist.onDelete', {detail: {xhr: null}});
@@ -50,17 +49,44 @@
             arrButtons[i].addEventListener('click', function (e) {
                 e.preventDefault();
 
+                // set state for handle further events
+                e.target.watchlistPreviousState = e.target.classList.contains('active');
+
                 // send xhr
                 xhr.open('POST', location.href);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send(serializeWatchlistForm(e.target.form));
-
-                // set state for handle further events
-                e.target.watchlistPreviousState = e.target.classList.contains('active');
+                xhr.stateBefore = e.target.watchlistPreviousState;
 
                 xhr.onload = function (e) {
                     // add xhr event
                     watchlistChange.detail.xhr = e;
+
+                    var redirectorElement = document.querySelector('.mod_watchlistRedirector a');
+
+                    // count up/down and toggle class for mod_watchlistRedirector module
+                    if(!!redirectorElement) {
+                        var count = parseInt(redirectorElement.dataset.count);
+                        var countElement = document.querySelector('.mod_watchlistRedirector a span');
+
+                        if(this.stateBefore && count !== 0){
+                            --count;
+                        }else if(!this.stateBefore){
+                            ++count;
+                        }
+
+                        redirectorElement.dataset.count = count;
+
+                        if(count > 0){
+                            redirectorElement.classList.add('active');
+                        }else{
+                            redirectorElement.classList.remove('active');
+                        }
+
+                        if(!!countElement) {
+                            countElement.innerHTML = count;
+                        }
+                    }
 
                     // dispatch custom event
                     document.dispatchEvent(watchlistChange);

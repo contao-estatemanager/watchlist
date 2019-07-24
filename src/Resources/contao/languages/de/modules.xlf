@@ -10,6 +10,14 @@
         <source>Ermöglicht die Ausgabe eines Buttons, um die Immobilie dem Merkzettel hinzuzufügen</source>
         <target>Ermöglicht die Ausgabe eines Buttons, um die Immobilie dem Merkzettel hinzuzufügen</target>
       </trans-unit>
+      <trans-unit id="FMD.watchlistRedirector.0">
+        <source>Real Estate Watchlist Redirector</source>
+        <target>Immobilien Merkzettel Weiterleitung</target>
+      </trans-unit>
+      <trans-unit id="FMD.watchlistRedirector.1">
+        <source>Creates a button to load on the overview of the noted real estates.</source>
+        <target>Erzeugt einen Button um auf die Übersicht der gemerkten Immobilien zu geladen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

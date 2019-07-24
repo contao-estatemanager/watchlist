@@ -9,6 +9,11 @@
  */
 
 if(ContaoEstateManager\Watchlist\AddonManager::valid()){
+    array_insert($GLOBALS['TL_DCA']['tl_module']['palettes'], 0, array
+    (
+        'watchlistRedirector' => '{title_legend},name,headline,type;{config_legend},jumpTo,addWatchlistCount;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
+    ));
+
     // Extend immo manager listMode field options
     array_insert($GLOBALS['TL_DCA']['tl_module']['fields']['listMode']['options'], -1, array('watchlist'));
 
@@ -17,6 +22,13 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()){
         'addWatchlist'  => array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlist'],
+            'inputType'                 => 'checkbox',
+            'eval'                      => array('tl_class' => 'w50 m12'),
+            'sql'                       => "char(1) NOT NULL default '0'",
+        ),
+        'addWatchlistCount'  => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlistCount'],
             'inputType'                 => 'checkbox',
             'eval'                      => array('tl_class' => 'w50 m12'),
             'sql'                       => "char(1) NOT NULL default '0'",

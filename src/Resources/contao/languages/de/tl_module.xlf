@@ -22,6 +22,22 @@
         <source>Here you can overwrite the default template for watchlist within a real estate template.</source>
         <target>Hier können Sie das Standard-Template für Merkzettel innerhalb eines Immobilien Templates überschreiben</target>
       </trans-unit>
+      <trans-unit id="tl_module.realEstateWatchlistRedirectorTemplate.0">
+        <source>Watchlist Redirector Template</source>
+        <target>Merkzettel Weiterleitungs Template</target>
+      </trans-unit>
+      <trans-unit id="tl_module.realEstateWatchlistRedirectorTemplate.1">
+        <source>Here you can overwrite the default template for watchlist redirctor.</source>
+        <target>Hier können Sie das Standard-Template für die Merkzettel Weiterleitung überschreiben</target>
+      </trans-unit>
+      <trans-unit id="tl_module.addWatchlistCount.0">
+        <source>Output number</source>
+        <target>Anzahl ausgeben</target>
+      </trans-unit>
+      <trans-unit id="tl_module.addWatchlistCount.1">
+        <source>Displays the number of real estates on hold.</source>
+        <target>Gibt die Anzahl der gemerkten Immobilien aus.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -15,9 +15,8 @@ use ContaoEstateManager\RealEstateModel;
 
 class Watchlist extends \System
 {
-
     /**
-     * Watchlist initialized indicaotr
+     * Watchlist initialized indicator
      * @var boolean
      */
     public static $watchListInitialized = false;
