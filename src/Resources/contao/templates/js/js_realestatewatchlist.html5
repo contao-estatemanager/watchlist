@@ -9,8 +9,8 @@
  * @author Daniele Sciannimanica <daniele@oveleon.de>
  */
 (function() {
-    var watchlistChange = new CustomEvent('watchlist.onChange', {detail: {xhr: null, previousState: null}});
-    var watchlistDelete = new CustomEvent('watchlist.onDelete', {detail: {xhr: null}});
+    var watchlistChange = new CustomEvent('watchlist.onChange', {detail: {xhr: null, element: null}});
+    var watchlistDelete = new CustomEvent('watchlist.onDelete', {detail: {xhr: null, element: null}});
 
     function serializeWatchlistForm(form) {
         var field, s = [];
@@ -91,6 +91,7 @@
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send(serializeWatchlistForm(e.target.form));
                 xhr.stateBefore = e.target.watchlistPreviousState;
+                xhr.detail.element = e.target;
 
                 xhr.onload = function (e) {
                     // add xhr event
@@ -136,10 +137,11 @@
                 dxhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 dxhr.send(serializeWatchlistForm(e.target.form));
                 dxhr.stateBefore = e.target.watchlistPreviousState;
+                dxhr.detail.element = e.target;
 
                 dxhr.onload = function (e) {
                     // add dxhr event
-                    watchlistDelete.detail.dxhr = e;
+                    watchlistDelete.detail.xhr = e;
 
                     // modify module watchlist redirector is needed
                     modifyModuleWatchlistRedirector(this);
@@ -150,7 +152,7 @@
 
                 dxhr.onerror = function (e) {
                     // add dxhr event
-                    watchlistDelete.detail.dxhr = e;
+                    watchlistDelete.detail.xhr = e;
 
                     // dispatch custom event
                     document.dispatchEvent(watchlistDelete);
