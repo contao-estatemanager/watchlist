@@ -2,7 +2,7 @@
 
 <?php $this->block('content'); ?>
 
-<<?=($this->link?'a href="' . $this->link . '"':'span')?><?=($this->count>0?' class="active"':'')?> data-count="<?=$this->count?>">
+<<?=($this->link?'a href="' . $this->link . '"':'span')?><?=($this->count>0?' class="active"':'')?> data-count="<?=$this->count?>" title="<?=strip_tags($this->label)?>">
     <?=$this->label?>
 
     <?php if($this->addCount): ?>
