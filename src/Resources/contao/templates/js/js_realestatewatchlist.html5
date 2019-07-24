@@ -1,10 +1,17 @@
 <script>
+/**
+ * Asynchronous adding of real estate
+ *
+ * Listen to the following custom functions:
+ * - watchlist.onChange
+ * - watchlist.onDelete
+ *
+ * @author Daniele Sciannimanica <daniele@oveleon.de>
+ */
 (function() {
-    // register custom events
     var watchlistChange = new CustomEvent('watchlist.onChange', {detail: {xhr: null, previousState: null}});
     var watchlistDelete = new CustomEvent('watchlist.onDelete', {detail: {xhr: null}});
 
-    // serialize form function
     function serializeWatchlistForm(form) {
         var field, s = [];
         if (typeof form == 'object' && form.nodeName == "FORM") {
@@ -26,12 +33,39 @@
         return s.join('&').replace(/%20/g, '+');
     }
 
+    function modifyModuleWatchlistRedirector(ctx){
+        var redirectorElement = document.querySelector('.mod_watchlistRedirector a');
+
+        // count up/down and toggle class for mod_watchlistRedirector module
+        if(!!redirectorElement) {
+            var count = parseInt(redirectorElement.dataset.count);
+            var countElement = document.querySelector('.mod_watchlistRedirector a span');
+
+            if(ctx.stateBefore && count !== 0){
+                --count;
+            }else if(!ctx.stateBefore){
+                ++count;
+            }
+
+            redirectorElement.dataset.count = count;
+
+            if(count > 0){
+                redirectorElement.classList.add('active');
+            }else{
+                redirectorElement.classList.remove('active');
+            }
+
+            if(!!countElement) {
+                countElement.innerHTML = count;
+            }
+        }
+    }
+
     // default watchlist buttons
     if(!!document.querySelector('.real_estate_watchlist_button button')) {
-        var allButtons = document.querySelectorAll('.real_estate_watchlist_button button'),
-            excludeWlButtons = document.querySelectorAll('.delete-list .real_estate_watchlist_button button'),
-            arrButtons = [],
-            xhr = new XMLHttpRequest();
+        var allButtons = document.querySelectorAll('.real_estate_watchlist_button button');
+        var excludeWlButtons = document.querySelectorAll('.delete-list .real_estate_watchlist_button button');
+        var arrButtons = [], xhr = new XMLHttpRequest();
 
         // exclude buttons from list with a .delete-list parent
         for (var c=0; c<allButtons.length; c++){
@@ -62,31 +96,8 @@
                     // add xhr event
                     watchlistChange.detail.xhr = e;
 
-                    var redirectorElement = document.querySelector('.mod_watchlistRedirector a');
-
-                    // count up/down and toggle class for mod_watchlistRedirector module
-                    if(!!redirectorElement) {
-                        var count = parseInt(redirectorElement.dataset.count);
-                        var countElement = document.querySelector('.mod_watchlistRedirector a span');
-
-                        if(this.stateBefore && count !== 0){
-                            --count;
-                        }else if(!this.stateBefore){
-                            ++count;
-                        }
-
-                        redirectorElement.dataset.count = count;
-
-                        if(count > 0){
-                            redirectorElement.classList.add('active');
-                        }else{
-                            redirectorElement.classList.remove('active');
-                        }
-
-                        if(!!countElement) {
-                            countElement.innerHTML = count;
-                        }
-                    }
+                    // modify module watchlist redirector is needed
+                    modifyModuleWatchlistRedirector(this);
 
                     // dispatch custom event
                     document.dispatchEvent(watchlistChange);
@@ -107,23 +118,43 @@
 
     // remove from watchlist buttons
     if(!!document.querySelector('.delete-list .real_estate_watchlist_button button')) {
-        var deleteButtons = document.querySelectorAll('.delete-list .real_estate_watchlist_button button'),
-            xhr = new XMLHttpRequest();
+        var deleteButtons = document.querySelectorAll('.delete-list .real_estate_watchlist_button button');
+        var dxhr = new XMLHttpRequest();
 
         for (var i=0; i<deleteButtons.length; i++){
             deleteButtons[i].addEventListener('click', function (e) {
                 e.preventDefault();
 
+                // set state for handle further events
+                e.target.watchlistPreviousState = e.target.classList.contains('active');
+
+                // set removed class
+                e.target.classList.add('removed');
+
                 // send xhr
-                xhr.open('POST', location.href);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.send(serializeWatchlistForm(e.target.form));
+                dxhr.open('POST', location.href);
+                dxhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                dxhr.send(serializeWatchlistForm(e.target.form));
+                dxhr.stateBefore = e.target.watchlistPreviousState;
 
-                // add xhr event
-                watchlistDelete.detail.xhr = e;
+                dxhr.onload = function (e) {
+                    // add dxhr event
+                    watchlistDelete.detail.dxhr = e;
 
-                // dispatch custom event
-                document.dispatchEvent(watchlistDelete);
+                    // modify module watchlist redirector is needed
+                    modifyModuleWatchlistRedirector(this);
+
+                    // dispatch custom event
+                    document.dispatchEvent(watchlistDelete);
+                };
+
+                dxhr.onerror = function (e) {
+                    // add dxhr event
+                    watchlistDelete.detail.dxhr = e;
+
+                    // dispatch custom event
+                    document.dispatchEvent(watchlistDelete);
+                };
             });
         }
     }
