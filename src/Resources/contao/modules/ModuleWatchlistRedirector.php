@@ -69,7 +69,7 @@ class ModuleWatchlistRedirector extends ModuleRealEstate
         \System::loadLanguageFile('tl_real_estate_label');
 
         $this->Template->addCount = !!$this->addWatchlistCount;
-        $this->Template->count = count($_SESSION['WATCHLIST']);
+        $this->Template->count = $_SESSION['WATCHLIST'] ? count($_SESSION['WATCHLIST']) : 0;
         $this->Template->link = $link;
         $this->Template->label = Translator::translateLabel('button_watchlist_redirector');
     }
