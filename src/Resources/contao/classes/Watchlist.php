@@ -34,8 +34,17 @@ class Watchlist extends \System
         }
 
         $objMember = \MemberModel::findByPk($objUser->id);
+        $watchlist = \StringUtil::deserialize($objMember->watchlist, true);
 
-        $watchlist = array_merge(\StringUtil::deserialize($objMember->watchlist, true), $_SESSION['WATCHLIST']);
+        $sWatchlist = $_SESSION['WATCHLIST'];
+
+        foreach ($sWatchlist as $realEstateId)
+        {
+            if (($key = \array_search($realEstateId, $watchlist)) === false)
+            {
+                $watchlist[] = $realEstateId;
+            }
+        }
 
         $_SESSION['WATCHLIST'] = $watchlist;
 
