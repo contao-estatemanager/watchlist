@@ -28,7 +28,7 @@ class Watchlist extends \System
      */
     public function postLogin($objUser)
     {
-        if (!($objUser instanceof \FrontendUser) || !isset($_SESSION['WATCHLIST']) || !is_array($_SESSION['WATCHLIST']))
+        if (!$objUser instanceof \FrontendUser)
         {
             return;
         }
@@ -38,11 +38,14 @@ class Watchlist extends \System
 
         $sWatchlist = $_SESSION['WATCHLIST'];
 
-        foreach ($sWatchlist as $realEstateId)
+        if (is_array($sWatchlist))
         {
-            if (($key = \array_search($realEstateId, $watchlist)) === false)
+            foreach ($sWatchlist as $realEstateId)
             {
-                $watchlist[] = $realEstateId;
+                if (($key = \array_search($realEstateId, $watchlist)) === false)
+                {
+                    $watchlist[] = $realEstateId;
+                }
             }
         }
 
