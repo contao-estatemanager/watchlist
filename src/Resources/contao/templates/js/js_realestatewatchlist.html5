@@ -9,6 +9,20 @@
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
 (function() {
+    // IE Polyfill
+    if ( typeof window.CustomEvent !== "function" ) {
+        function CustomEvent ( event, params ) {
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+            var evt = document.createEvent( 'CustomEvent' );
+            evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+            return evt;
+        }
+
+        CustomEvent.prototype = window.Event.prototype;
+
+        window.CustomEvent = CustomEvent;
+    }
+
     var watchlistChange = new CustomEvent('watchlist.onChange', {detail: {xhr: null, element: null}});
     var watchlistDelete = new CustomEvent('watchlist.onDelete', {detail: {xhr: null, element: null}});
 
