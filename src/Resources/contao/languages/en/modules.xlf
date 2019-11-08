@@ -1,22 +1,18 @@
 <?xml version="1.0" ?>
 <xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en">
     <body>
       <trans-unit id="FMD.watchlist.0">
         <source>Watchlist</source>
-        <target>Merkzettel</target>
       </trans-unit>
       <trans-unit id="FMD.watchlist.1">
         <source>Allows the output of a button to add the real estate to the watchlist.</source>
-        <target>Ermöglicht die Ausgabe eines Buttons, um die Immobilie dem Merkzettel hinzuzufügen.</target>
       </trans-unit>
       <trans-unit id="FMD.watchlistRedirector.0">
         <source>Real estate watchlist forwarding</source>
-        <target>Immobilien Merkzettel Weiterleitung</target>
       </trans-unit>
       <trans-unit id="FMD.watchlistRedirector.1">
         <source>Creates a button to forward to the overview of noted real estate.</source>
-        <target>Erzeugt einen Button um auf die Übersicht der gemerkten Immobilien weitergeleitet zu werden.</target>
       </trans-unit>
     </body>
   </file>
