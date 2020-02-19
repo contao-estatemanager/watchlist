@@ -29,7 +29,7 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()) {
     $GLOBALS['TL_HOOKS']['postLogin'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'postLogin');
 
     $GLOBALS['TL_HOOKS']['generateRealEstateList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
-    $GLOBALS['TL_HOOKS']['generateRealEstateExpose'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
+    $GLOBALS['TL_HOOKS']['compileRealEstateExpose'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
     $GLOBALS['TL_HOOKS']['generateRealEstateResultList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
     $GLOBALS['TL_HOOKS']['generateRealEstateProjectList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
 
