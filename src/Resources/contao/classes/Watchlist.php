@@ -63,7 +63,8 @@ class Watchlist extends \System
      */
     public function countItems(&$intCount, $context)
     {
-        if($context->listMode !== 'watchlist'){
+        if($context->listMode !== 'watchlist')
+        {
             return;
         }
 
@@ -74,20 +75,26 @@ class Watchlist extends \System
      * Fetch watchlist objects
      *
      * @param $objRealEstate
-     * @param $limit
-     * @param $offset
+     * @param $arrOptions
      * @param $context
      */
-    public function fetchItems(&$objRealEstate, $limit, $offset, $context)
+    public function fetchItems(&$objRealEstate, $arrOptions, $context)
     {
-        if($context->listMode !== 'watchlist'){
+        if($context->listMode !== 'watchlist')
+        {
             return;
         }
 
-        $arrOptions = array(
-            'limit' => $limit,
-            'offset' => $offset
-        );
+        $strOrder = 'FIELD(tl_real_estate.id,' . implode(',', $_SESSION['WATCHLIST']) . ')';
+
+        if (array_key_exists('order', $arrOptions))
+        {
+            $arrOptions['order'] .= ', ' . $strOrder;
+        }
+        else
+        {
+            $arrOptions['order'] = $strOrder;
+        }
 
         $objRealEstate = RealEstateModel::findMultipleByIds($_SESSION['WATCHLIST'], $arrOptions);
     }
