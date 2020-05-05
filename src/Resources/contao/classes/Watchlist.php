@@ -10,10 +10,16 @@
 
 namespace ContaoEstateManager\Watchlist;
 
+use Contao\FrontendTemplate;
+use Contao\FrontendUser;
+use Contao\Input;
+use Contao\MemberModel;
+use Contao\StringUtil;
+use Contao\System;
 use ContaoEstateManager\Translator;
 use ContaoEstateManager\RealEstateModel;
 
-class Watchlist extends \System
+class Watchlist extends System
 {
     /**
      * Watchlist initialized indicator
@@ -28,13 +34,13 @@ class Watchlist extends \System
      */
     public function postLogin($objUser)
     {
-        if (!$objUser instanceof \FrontendUser)
+        if (!$objUser instanceof FrontendUser)
         {
             return;
         }
 
-        $objMember = \MemberModel::findByPk($objUser->id);
-        $watchlist = \StringUtil::deserialize($objMember->watchlist, true);
+        $objMember = MemberModel::findByPk($objUser->id);
+        $watchlist = StringUtil::deserialize($objMember->watchlist, true);
 
         $sWatchlist = $_SESSION['WATCHLIST'];
 
@@ -110,7 +116,7 @@ class Watchlist extends \System
     {
         if (!!$context->addWatchlist)
         {
-            $objWatchlistTemplate = new \FrontendTemplate($context->realEstateWatchlistTemplate);
+            $objWatchlistTemplate = new FrontendTemplate($context->realEstateWatchlistTemplate);
 
             $objWatchlistTemplate->realEstateId = $realEstate->objRealEstate->id;
             $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']) ? ' active' : '';
@@ -127,12 +133,12 @@ class Watchlist extends \System
     {
         $_SESSION['WATCHLIST'] = \is_array($_SESSION['WATCHLIST']) ? $_SESSION['WATCHLIST'] : array();
 
-        if (\Input::post('FORM_SUBMIT') != 'watchlist' || !\Input::post('REAL_ESTATE_ID') || static::$watchListInitialized)
+        if (Input::post('FORM_SUBMIT') != 'watchlist' || !Input::post('REAL_ESTATE_ID') || static::$watchListInitialized)
         {
             return;
         }
 
-        $realEstateId = \Input::post('REAL_ESTATE_ID');
+        $realEstateId = Input::post('REAL_ESTATE_ID');
 
         if (($key = \array_search($realEstateId, $_SESSION['WATCHLIST'])) !== false)
         {

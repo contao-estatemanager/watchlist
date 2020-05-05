@@ -10,8 +10,12 @@
 
 namespace ContaoEstateManager\Watchlist;
 
+use Contao\BackendTemplate;
+use Contao\PageModel;
+use Contao\System;
 use ContaoEstateManager\ModuleRealEstate;
 use ContaoEstateManager\Translator;
+use Patchwork\Utf8;
 
 /**
  * Front end module "watchlist redirector".
@@ -35,7 +39,7 @@ class ModuleWatchlistRedirector extends ModuleRealEstate
     {
         if (TL_MODE == 'BE')
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['watchlistRedirector'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
@@ -57,16 +61,16 @@ class ModuleWatchlistRedirector extends ModuleRealEstate
 
         if($this->jumpTo)
         {
-            $objPage = \PageModel::findByPk($this->jumpTo);
+            $objPage = PageModel::findByPk($this->jumpTo);
 
-            if ($objPage instanceof \PageModel)
+            if ($objPage instanceof PageModel)
             {
                 $link = ampersand($objPage->getFrontendUrl());
             }
         }
 
         // Load translations
-        \System::loadLanguageFile('tl_real_estate_label');
+        System::loadLanguageFile('tl_real_estate_label');
 
         $this->Template->addCount = !!$this->addWatchlistCount;
         $this->Template->count = $_SESSION['WATCHLIST'] ? count($_SESSION['WATCHLIST']) : 0;
