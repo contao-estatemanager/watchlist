@@ -2,7 +2,7 @@
   "name":"contao-estatemanager/watchlist",
   "type":"contao-bundle",
   "description":"Watchlist Extension for Contao EstateManager",
-  "keywords":["contao","estatemanager","real estate","estate","property","watchlist"],
+  "keywords":["contao", "immobilien", "manager", "property", "realestate", "watchlist", "merkzettel", "notepad"],
   "homepage":"https://www.contao-estatemanager.com/",
   "license":"proprietary",
   "authors":[

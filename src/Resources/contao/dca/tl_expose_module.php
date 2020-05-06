@@ -9,9 +9,6 @@
  */
 
 if(ContaoEstateManager\Watchlist\AddonManager::valid()) {
-    // Add field
-    array_insert($GLOBALS['TL_DCA']['tl_expose_module']['palettes'], -1, array
-    (
-        'watchlist' => '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
-    ));
+    // Add palette
+    $GLOBALS['TL_DCA']['tl_expose_module']['palettes']['watchlist'] = '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 }

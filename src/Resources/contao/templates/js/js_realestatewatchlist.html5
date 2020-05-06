@@ -19,11 +19,9 @@
 /**
  * Asynchronous adding of real estate
  *
- * Listen to the following custom functions:
+ * Listen to the following custom events:
  * - watchlist.onChange
  * - watchlist.onDelete
- *
- * @author Daniele Sciannimanica <https://github.com/doishub>
  */
 (function() {
     var watchlistChange = new CustomEvent('watchlist.onChange', {detail: {xhr: null, element: null}});

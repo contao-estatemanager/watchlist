@@ -9,7 +9,7 @@
         <source>Allows the output of a button to add the real estate to the watchlist.</source>
       </trans-unit>
       <trans-unit id="FMD.watchlistRedirector.0">
-        <source>Real estate watchlist forwarding</source>
+        <source>Watchlist forwarding</source>
       </trans-unit>
       <trans-unit id="FMD.watchlistRedirector.1">
         <source>Creates a button to forward to the overview of noted real estate.</source>

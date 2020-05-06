@@ -30,9 +30,9 @@ class Watchlist extends System
     /**
      * Set stored user watchlist
      *
-     * @param \User $objUser
+     * @param FrontendUser $objUser
      */
-    public function postLogin($objUser)
+    public function postLogin($objUser): void
     {
         if (!$objUser instanceof FrontendUser)
         {
@@ -67,7 +67,7 @@ class Watchlist extends System
      * @param $intCount
      * @param $context
      */
-    public function countItems(&$intCount, $context)
+    public function countItems(&$intCount, $context): void
     {
         if($context->listMode !== 'watchlist')
         {
@@ -84,7 +84,7 @@ class Watchlist extends System
      * @param $arrOptions
      * @param $context
      */
-    public function fetchItems(&$objRealEstate, $arrOptions, $context)
+    public function fetchItems(&$objRealEstate, $arrOptions, $context): void
     {
         if($context->listMode !== 'watchlist')
         {
@@ -112,14 +112,13 @@ class Watchlist extends System
      * @param $realEstate
      * @param $context
      */
-    public function parseRealEstate(&$objTemplate, $realEstate, $context)
+    public function parseRealEstate(&$objTemplate, $realEstate, $context): void
     {
         if (!!$context->addWatchlist)
         {
             $objWatchlistTemplate = new FrontendTemplate($context->realEstateWatchlistTemplate);
 
-            $objWatchlistTemplate->realEstateId = $realEstate->objRealEstate->id;
-            $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']) ? ' active' : '';
+            $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']);
             $objWatchlistTemplate->label = Translator::translateLabel('button_watchlist');
 
             $objTemplate->arrExtensions = array_merge($objTemplate->arrExtensions, [$objWatchlistTemplate->parse()]);
@@ -129,11 +128,11 @@ class Watchlist extends System
     /**
      * Initialize the watchlist in the current session
      */
-    public function initializeWatchlistSession()
+    public function initializeWatchlistSession(): void
     {
         $_SESSION['WATCHLIST'] = \is_array($_SESSION['WATCHLIST']) ? $_SESSION['WATCHLIST'] : array();
 
-        if (Input::post('FORM_SUBMIT') != 'watchlist' || !Input::post('REAL_ESTATE_ID') || static::$watchListInitialized)
+        if (Input::post('FORM_SUBMIT') !== 'watchlist' || !Input::post('REAL_ESTATE_ID') || static::$watchListInitialized)
         {
             return;
         }
