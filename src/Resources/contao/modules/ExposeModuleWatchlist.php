@@ -55,7 +55,7 @@ class ExposeModuleWatchlist extends ExposeModule
      */
     protected function compile()
     {
-        $this->Template->active = \in_array($this->realEstate->id, $_SESSION['WATCHLIST']);
+        $this->Template->active = in_array($this->realEstate->id, $_SESSION['WATCHLIST']);
         $this->Template->label = Translator::translateExpose('button_watchlist');
     }
 }
