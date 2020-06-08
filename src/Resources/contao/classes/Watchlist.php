@@ -120,6 +120,7 @@ class Watchlist extends System
 
             $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']);
             $objWatchlistTemplate->label = Translator::translateLabel('button_watchlist');
+            $objWatchlistTemplate->realEstate = $realEstate;
 
             $objTemplate->arrExtensions = array_merge($objTemplate->arrExtensions, [$objWatchlistTemplate->parse()]);
         }
