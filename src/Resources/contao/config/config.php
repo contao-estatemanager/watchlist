@@ -8,24 +8,17 @@
  * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
-
 // ESTATEMANAGER
 $GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = array('ContaoEstateManager\\Watchlist', 'AddonManager');
 
 if(ContaoEstateManager\Watchlist\AddonManager::valid()) {
     // Add expose module
-    array_insert($GLOBALS['FE_EXPOSE_MOD']['miscellaneous'], -1, array
-    (
-        'watchlist' => '\\ContaoEstateManager\\Watchlist\\ExposeModuleWatchlist',
-    ));
+    $GLOBALS['FE_EXPOSE_MOD']['miscellaneous']['watchlist'] = '\\ContaoEstateManager\\Watchlist\\ExposeModuleWatchlist';
 
     // Add front end modules
-    array_insert($GLOBALS['FE_MOD']['estatemanager'], count($GLOBALS['FE_MOD']['estatemanager']), array
-    (
-        'watchlistRedirector'       => '\\ContaoEstateManager\\Watchlist\\ModuleWatchlistRedirector'
-    ));
+    $GLOBALS['FE_MOD']['estatemanager']['watchlistRedirector'] = '\\ContaoEstateManager\\Watchlist\\ModuleWatchlistRedirector';
 
-    // HOOKS
+    // Hooks
     $GLOBALS['TL_HOOKS']['postLogin'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'postLogin');
 
     $GLOBALS['TL_HOOKS']['generateRealEstateList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');

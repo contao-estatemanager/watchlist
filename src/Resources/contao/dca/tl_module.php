@@ -9,40 +9,40 @@
  */
 
 if(ContaoEstateManager\Watchlist\AddonManager::valid()){
-    array_insert($GLOBALS['TL_DCA']['tl_module']['palettes'], 0, array
-    (
-        'watchlistRedirector' => '{title_legend},name,headline,type;{config_legend},jumpTo,addWatchlistCount;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
-    ));
+    // Add palettes
+    $GLOBALS['TL_DCA']['tl_module']['palettes']['watchlistRedirector'] = '{title_legend},name,headline,type;{config_legend},jumpTo,addWatchlistCount;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
     // Extend immo manager listMode field options
-    array_insert($GLOBALS['TL_DCA']['tl_module']['fields']['listMode']['options'], -1, array('watchlist'));
+    $GLOBALS['TL_DCA']['tl_module']['fields']['listMode']['options'][] = 'watchlist';
 
-    // Add field
-    array_insert($GLOBALS['TL_DCA']['tl_module']['fields'], -1, array(
-        'addWatchlist'  => array
-        (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlist'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class' => 'w50 m12'),
-            'sql'                       => "char(1) NOT NULL default '0'",
-        ),
-        'addWatchlistCount'  => array
-        (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlistCount'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class' => 'w50 m12'),
-            'sql'                       => "char(1) NOT NULL default '0'",
-        ),
-        'realEstateWatchlistTemplate' => array(
-            'label'                   => &$GLOBALS['TL_LANG']['tl_module']['realEstateWatchlistTemplate'],
-            'default'                 => 'real_estate_itemext_watchlist_default',
-            'exclude'                 => true,
-            'inputType'               => 'select',
-            'options_callback'        => array('tl_module_estate_manager', 'getRealEstateExtensionTemplates'),
-            'eval'                    => array('tl_class'=>'w50'),
-            'sql'                     => "varchar(64) NOT NULL default ''"
-        )
-    ));
+    // Add fields
+    $GLOBALS['TL_DCA']['tl_module']['fields']['addWatchlist'] = array(
+        'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlist'],
+        'exclude'                   => true,
+        'inputType'                 => 'checkbox',
+        'eval'                      => array('tl_class' => 'w50 m12'),
+        'sql'                       => "char(1) NOT NULL default '0'",
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['addWatchlistCount'] = array(
+        'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlistCount'],
+        'exclude'                   => true,
+        'inputType'                 => 'checkbox',
+        'eval'                      => array('tl_class' => 'w50 m12'),
+        'sql'                       => "char(1) NOT NULL default '0'",
+    );
+
+    $GLOBALS['TL_DCA']['tl_module']['fields']['realEstateWatchlistTemplate'] = array(
+        'label'                   => &$GLOBALS['TL_LANG']['tl_module']['realEstateWatchlistTemplate'],
+        'exclude'                   => true,
+        'exclude'                 => true,
+        'inputType'               => 'select',
+        'options_callback'        => function (){
+            return Contao\Controller::getTemplateGroup('real_estate_itemext_watchlist_');
+        },
+        'eval'                    => array('tl_class'=>'w50'),
+        'sql'                     => "varchar(64) NOT NULL default ''"
+    );
 
     // Extend the default palettes
     Contao\CoreBundle\DataContainer\PaletteManipulator::create()

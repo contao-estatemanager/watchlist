@@ -10,8 +10,10 @@
 
 namespace ContaoEstateManager\Watchlist;
 
+use Contao\BackendTemplate;
 use ContaoEstateManager\Translator;
 use ContaoEstateManager\ExposeModule;
+use Patchwork\Utf8;
 
 /**
  * Expose module "watchlist".
@@ -35,7 +37,7 @@ class ExposeModuleWatchlist extends ExposeModule
     {
         if (TL_MODE == 'BE')
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['watchlist'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
@@ -53,8 +55,7 @@ class ExposeModuleWatchlist extends ExposeModule
      */
     protected function compile()
     {
-        $this->Template->realEstateId = $this->realEstate->objRealEstate->id;
-        $this->Template->active = \in_array($this->realEstate->objRealEstate->id, $_SESSION['WATCHLIST']) ? ' active' : '';
+        $this->Template->active = in_array($this->realEstate->id, $_SESSION['WATCHLIST']);
         $this->Template->label = Translator::translateExpose('button_watchlist');
     }
 }
