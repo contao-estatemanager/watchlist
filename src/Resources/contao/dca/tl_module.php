@@ -18,6 +18,7 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()){
     // Add fields
     $GLOBALS['TL_DCA']['tl_module']['fields']['addWatchlist'] = array(
         'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlist'],
+        'exclude'                   => true,
         'inputType'                 => 'checkbox',
         'eval'                      => array('tl_class' => 'w50 m12'),
         'sql'                       => "char(1) NOT NULL default '0'",
@@ -25,6 +26,7 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()){
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['addWatchlistCount'] = array(
         'label'                     => &$GLOBALS['TL_LANG']['tl_module']['addWatchlistCount'],
+        'exclude'                   => true,
         'inputType'                 => 'checkbox',
         'eval'                      => array('tl_class' => 'w50 m12'),
         'sql'                       => "char(1) NOT NULL default '0'",
@@ -32,6 +34,7 @@ if(ContaoEstateManager\Watchlist\AddonManager::valid()){
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['realEstateWatchlistTemplate'] = array(
         'label'                   => &$GLOBALS['TL_LANG']['tl_module']['realEstateWatchlistTemplate'],
+        'exclude'                   => true,
         'exclude'                 => true,
         'inputType'               => 'select',
         'options_callback'        => function (){
