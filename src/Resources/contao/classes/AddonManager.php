@@ -17,10 +17,16 @@ use ContaoEstateManager\EstateManager;
 class AddonManager
 {
     /**
-     * Addon name
+     * Bundle name
      * @var string
      */
-    public static $name = 'Watchlist';
+    public static $bundle = 'EstateManagerWatchlist';
+
+    /**
+     * Package
+     * @var string
+     */
+    public static $package = 'contao-estatemanager/watchlist';
 
     /**
      * Addon config key
