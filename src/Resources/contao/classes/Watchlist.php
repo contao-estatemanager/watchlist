@@ -102,7 +102,7 @@ class Watchlist extends System
             $arrOptions['order'] = $strOrder;
         }
 
-        $objRealEstate = RealEstateModel::findMultipleByIds($_SESSION['WATCHLIST'], $arrOptions);
+        $objRealEstate = RealEstateModel::findPublishedByIds($_SESSION['WATCHLIST'], $arrOptions);
     }
 
     /**
