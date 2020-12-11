@@ -2,7 +2,7 @@
 The watchlist extension for Contao EstateManager integrates the possibility to save properties in a notepad.
 
 # License
-Copyright (c) 2019 Contao EstateManager
+Copyright © 2020 Contao EstateManager
 
-German: https://www.contao-estatemanager.com/de/lizenzbedingungen.html \
-English: https://www.contao-estatemanager.com/en/licenseagreement.html
+🎫 [Get license](https://www.contao-estatemanager.com/de/erweiterungen/merkzettel.html) \
+⚖ [License agreement](https://www.contao-estatemanager.com/de/lizenzbedingungen.html) (German)
