@@ -4,4 +4,5 @@ The watchlist extension for Contao EstateManager integrates the possibility to s
 # License
 Copyright © 2020 Contao EstateManager
 
+🎫 [Get license](https://www.contao-estatemanager.com/de/erweiterungen/merkzettel.html) \
 ⚖ [License agreement](https://www.contao-estatemanager.com/de/lizenzbedingungen.html) (German)
