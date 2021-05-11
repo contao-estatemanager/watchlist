@@ -11,8 +11,8 @@
         <target>Ermöglicht die Ausgabe eines Buttons, um die Immobilie dem Merkzettel hinzuzufügen.</target>
       </trans-unit>
       <trans-unit id="FMD.watchlistRedirector.0">
-        <source>Watchlist forwarding</source>
-        <target>Merkzettel Weiterleitung</target>
+        <source>Watchlist forwarding (Counter)</source>
+        <target>Merkzettel Weiterleitung (Zähler)</target>
       </trans-unit>
       <trans-unit id="FMD.watchlistRedirector.1">
         <source>Creates a button to forward to the overview of noted real estate.</source>

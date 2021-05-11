@@ -49,12 +49,12 @@
     }
 
     function modifyModuleWatchlistRedirector(ctx){
-        var redirectorElement = document.querySelector('.mod_watchlistRedirector a');
+        var redirectorElement = document.querySelector('.mod_watchlistRedirector [data-count]');
 
         // count up/down and toggle class for mod_watchlistRedirector module
         if(!!redirectorElement) {
             var count = parseInt(redirectorElement.dataset.count);
-            var countElement = document.querySelector('.mod_watchlistRedirector a span');
+            var countElement = document.querySelector('.mod_watchlistRedirector [data-count] span');
 
             if(ctx.stateBefore && count !== 0){
                 --count;
