@@ -18,7 +18,6 @@ use Contao\PageModel;
 use Contao\System;
 use ContaoEstateManager\ModuleRealEstate;
 use ContaoEstateManager\Translator;
-use Patchwork\Utf8;
 
 /**
  * Front end module "watchlist redirector".
@@ -44,7 +43,7 @@ class ModuleWatchlistRedirector extends ModuleRealEstate
         if (TL_MODE === 'BE')
         {
             $objTemplate = new BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### '.Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['watchlistRedirector'][0]).' ###';
+            $objTemplate->wildcard = '### '.mb_strtoupper($GLOBALS['TL_LANG']['FMD']['watchlistRedirector'][0], 'UTF-8').' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;

@@ -16,7 +16,6 @@ namespace ContaoEstateManager\Watchlist;
 use Contao\BackendTemplate;
 use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\Translator;
-use Patchwork\Utf8;
 
 /**
  * Expose module "watchlist".
@@ -42,7 +41,7 @@ class ExposeModuleWatchlist extends ExposeModule
         if (TL_MODE === 'BE')
         {
             $objTemplate = new BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### '.Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['watchlist'][0]).' ###';
+            $objTemplate->wildcard = '### '.mb_strtoupper($GLOBALS['TL_LANG']['FMD']['watchlist'][0], 'UTF-8').' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
