@@ -1,11 +1,14 @@
 <?php
-/**
+
+declare(strict_types=1);
+
+/*
  * This file is part of Contao EstateManager.
  *
- * @link      https://www.contao-estatemanager.com/
- * @source    https://github.com/contao-estatemanager/watchlist
- * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
+ * @see        https://www.contao-estatemanager.com/
+ * @source     https://github.com/contao-estatemanager/watchlist
+ * @copyright  Copyright (c) 2021 Oveleon GbR (https://www.oveleon.de)
+ * @license    https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
 namespace ContaoEstateManager\Watchlist;
@@ -16,19 +19,20 @@ use Contao\Input;
 use Contao\MemberModel;
 use Contao\StringUtil;
 use Contao\System;
-use ContaoEstateManager\Translator;
 use ContaoEstateManager\RealEstateModel;
+use ContaoEstateManager\Translator;
 
 class Watchlist extends System
 {
     /**
-     * Watchlist initialized indicator
-     * @var boolean
+     * Watchlist initialized indicator.
+     *
+     * @var bool
      */
     public static $watchListInitialized = false;
 
     /**
-     * Set stored user watchlist
+     * Set stored user watchlist.
      *
      * @param FrontendUser $objUser
      */
@@ -44,11 +48,11 @@ class Watchlist extends System
 
         $sWatchlist = $_SESSION['WATCHLIST'];
 
-        if (is_array($sWatchlist))
+        if (\is_array($sWatchlist))
         {
             foreach ($sWatchlist as $realEstateId)
             {
-                if (($key = \array_search($realEstateId, $watchlist)) === false)
+                if (false === array_search($realEstateId, $watchlist, true))
                 {
                     $watchlist[] = $realEstateId;
                 }
@@ -62,23 +66,23 @@ class Watchlist extends System
     }
 
     /**
-     * Count watchlist objects
+     * Count watchlist objects.
      *
      * @param $intCount
      * @param $context
      */
     public function countItems(&$intCount, $context): void
     {
-        if($context->listMode !== 'watchlist')
+        if ('watchlist' !== $context->listMode)
         {
             return;
         }
 
-        $intCount = count($_SESSION['WATCHLIST']);
+        $intCount = \count($_SESSION['WATCHLIST']);
     }
 
     /**
-     * Fetch watchlist objects
+     * Fetch watchlist objects.
      *
      * @param $objRealEstate
      * @param $arrOptions
@@ -86,16 +90,16 @@ class Watchlist extends System
      */
     public function fetchItems(&$objRealEstate, $arrOptions, $context): void
     {
-        if($context->listMode !== 'watchlist')
+        if ('watchlist' !== $context->listMode)
         {
             return;
         }
 
-        $strOrder = 'FIELD(tl_real_estate.id,' . implode(',', $_SESSION['WATCHLIST']) . ')';
+        $strOrder = 'FIELD(tl_real_estate.id,'.implode(',', $_SESSION['WATCHLIST']).')';
 
-        if (array_key_exists('order', $arrOptions))
+        if (\array_key_exists('order', $arrOptions))
         {
-            $arrOptions['order'] .= ', ' . $strOrder;
+            $arrOptions['order'] .= ', '.$strOrder;
         }
         else
         {
@@ -106,7 +110,7 @@ class Watchlist extends System
     }
 
     /**
-     * Parse real estate template and add watchlist extension
+     * Parse real estate template and add watchlist extension.
      *
      * @param $objTemplate
      * @param $realEstate
@@ -114,11 +118,11 @@ class Watchlist extends System
      */
     public function parseRealEstate(&$objTemplate, $realEstate, $context): void
     {
-        if (!!$context->addWatchlist)
+        if ((bool) $context->addWatchlist)
         {
             $objWatchlistTemplate = new FrontendTemplate($context->realEstateWatchlistTemplate);
 
-            $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST']);
+            $objWatchlistTemplate->active = $_SESSION['WATCHLIST'] && \in_array($realEstate->objRealEstate->id, $_SESSION['WATCHLIST'], true);
             $objWatchlistTemplate->label = Translator::translateLabel('button_watchlist');
             $objWatchlistTemplate->realEstate = $realEstate;
 
@@ -127,20 +131,20 @@ class Watchlist extends System
     }
 
     /**
-     * Initialize the watchlist in the current session
+     * Initialize the watchlist in the current session.
      */
     public function initializeWatchlistSession(): void
     {
-        $_SESSION['WATCHLIST'] = \is_array($_SESSION['WATCHLIST']) ? $_SESSION['WATCHLIST'] : array();
+        $_SESSION['WATCHLIST'] = $_SESSION['WATCHLIST'] ?? [];
 
-        if (Input::post('FORM_SUBMIT') !== 'watchlist' || !Input::post('REAL_ESTATE_ID') || static::$watchListInitialized)
+        if ('watchlist' !== Input::post('FORM_SUBMIT') || !Input::post('REAL_ESTATE_ID') || static::$watchListInitialized)
         {
             return;
         }
 
         $realEstateId = Input::post('REAL_ESTATE_ID');
 
-        if (($key = \array_search($realEstateId, $_SESSION['WATCHLIST'])) !== false)
+        if (($key = array_search($realEstateId, $_SESSION['WATCHLIST'], true)) !== false)
         {
             unset($_SESSION['WATCHLIST'][$key]);
         }
@@ -154,8 +158,9 @@ class Watchlist extends System
             $this->import('FrontendUser', 'User');
             $this->import('Database');
 
-            $this->Database->prepare("UPDATE tl_member SET watchlist=? WHERE id=?")
-                ->execute(serialize($_SESSION['WATCHLIST']), $this->User->id);
+            $this->Database->prepare('UPDATE tl_member SET watchlist=? WHERE id=?')
+                ->execute(serialize($_SESSION['WATCHLIST']), $this->User->id)
+            ;
         }
 
         static::$watchListInitialized = true;

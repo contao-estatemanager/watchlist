@@ -1,33 +1,42 @@
 <?php
-/**
+
+declare(strict_types=1);
+
+/*
  * This file is part of Contao EstateManager.
  *
- * @link      https://www.contao-estatemanager.com/
- * @source    https://github.com/contao-estatemanager/watchlist
- * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
+ * @see        https://www.contao-estatemanager.com/
+ * @source     https://github.com/contao-estatemanager/watchlist
+ * @copyright  Copyright (c) 2021 Oveleon GbR (https://www.oveleon.de)
+ * @license    https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
 // ESTATEMANAGER
-$GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = array('ContaoEstateManager\\Watchlist', 'AddonManager');
+$GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = ['ContaoEstateManager\Watchlist', 'AddonManager'];
 
-if(ContaoEstateManager\Watchlist\AddonManager::valid()) {
+use ContaoEstateManager\Watchlist\AddonManager;
+use ContaoEstateManager\Watchlist\Watchlist;
+use ContaoEstateManager\Watchlist\ModuleWatchlistRedirector;
+use ContaoEstateManager\Watchlist\ExposeModuleWatchlist;
+
+if (AddonManager::valid())
+{
     // Add expose module
-    $GLOBALS['FE_EXPOSE_MOD']['miscellaneous']['watchlist'] = '\\ContaoEstateManager\\Watchlist\\ExposeModuleWatchlist';
+    $GLOBALS['FE_EXPOSE_MOD']['miscellaneous']['watchlist'] = ExposeModuleWatchlist::class;
 
     // Add front end modules
-    $GLOBALS['FE_MOD']['estatemanager']['watchlistRedirector'] = '\\ContaoEstateManager\\Watchlist\\ModuleWatchlistRedirector';
+    $GLOBALS['FE_MOD']['estatemanager']['watchlistRedirector'] = ModuleWatchlistRedirector::class;
 
     // Hooks
-    $GLOBALS['TL_HOOKS']['postLogin'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'postLogin');
+    $GLOBALS['TL_HOOKS']['postLogin'][] = [Watchlist::class, 'postLogin'];
 
-    $GLOBALS['TL_HOOKS']['generateRealEstateList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
-    $GLOBALS['TL_HOOKS']['compileRealEstateExpose'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
-    $GLOBALS['TL_HOOKS']['generateRealEstateResultList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
-    $GLOBALS['TL_HOOKS']['generateRealEstateProjectList'][] = array('\\ContaoEstateManager\\Watchlist\\Watchlist', 'initializeWatchlistSession');
+    $GLOBALS['TL_HOOKS']['generateRealEstateList'][] = [Watchlist::class, 'initializeWatchlistSession'];
+    $GLOBALS['TL_HOOKS']['compileRealEstateExpose'][] = [Watchlist::class, 'initializeWatchlistSession'];
+    $GLOBALS['TL_HOOKS']['generateRealEstateResultList'][] = [Watchlist::class, 'initializeWatchlistSession'];
+    $GLOBALS['TL_HOOKS']['generateRealEstateProjectList'][] = [Watchlist::class, 'initializeWatchlistSession'];
 
-    $GLOBALS['TL_HOOKS']['countItemsRealEstateList'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'countItems');
-    $GLOBALS['TL_HOOKS']['fetchItemsRealEstateList'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'fetchItems');
+    $GLOBALS['TL_HOOKS']['countItemsRealEstateList'][] = [Watchlist::class, 'countItems'];
+    $GLOBALS['TL_HOOKS']['fetchItemsRealEstateList'][] = [Watchlist::class, 'fetchItems'];
 
-    $GLOBALS['TL_HOOKS']['parseRealEstate'][] = array('ContaoEstateManager\\Watchlist\\Watchlist', 'parseRealEstate');
+    $GLOBALS['TL_HOOKS']['parseRealEstate'][] = [Watchlist::class, 'parseRealEstate'];
 }
